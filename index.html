@@ -120,5 +120,32 @@
 
   </div>
 
+<script type="module">
+  // Impor fungsi tambahTodoList dari file JavaScript Anda
+  import { tambahTodoList } from './firebase.js'; // Sesuaikan path jika berbeda
+
+  // Tangani submit form
+  document.getElementById('form-todo').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const teks = document.getElementById('teks').value.trim();
+    const status = document.getElementById('status').value;
+
+    if (!teks) {
+      alert('Teks todo tidak boleh kosong.');
+      return;
+    }
+
+    try {
+      await tambahTodoList(teks, status);
+      alert('Todo berhasil ditambahkan!');
+      document.getElementById('form-todo').reset();
+    } catch (error) {
+      console.error('Gagal menambahkan todo:', error);
+      alert('Gagal menambahkan todo.');
+    }
+  });
+</script>
+
 </body>
 </html>
