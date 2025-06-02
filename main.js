@@ -50,7 +50,7 @@ export async function ambilDaftarTodoList() {
 export async function tambahTodoList(teks, status = "belum selesai") {
   try {
     // menyimpan data ke koleksi 'todolist' di Firebase
-    const refDokumen = await addDoc(collection(basisdata, "todolist"), {
+    const refDokumen = await addDoc(collection(basisdata, "todo"), {
       teks: teks,
       status: status // sekarang menerima string dari parameter
     });

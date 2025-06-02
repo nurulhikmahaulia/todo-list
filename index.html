@@ -38,6 +38,8 @@
           <th>Aksi</th>
         </tr>
       </thead>
+      <tbody id="daftar-todo">
+      </tbody>
       <tbody>
         <tr>
           <td>1</td>
@@ -122,7 +124,7 @@
 
 <script type="module">
   // Impor fungsi tambahTodoList dari file JavaScript Anda
-  import { tambahTodoList } from './firebase.js'; // Sesuaikan path jika berbeda
+  import { tambahTodoList, ambilDaftarTodo } from './firebase.js'; // Sesuaikan path jika berbeda
 
   // Tangani submit form
   document.getElementById('form-todo').addEventListener('submit', async (e) => {
