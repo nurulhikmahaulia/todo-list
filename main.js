@@ -26,39 +26,36 @@ const firebaseConfig = {
 const aplikasi = initializeApp(firebaseConfig)
 const basisdata = getFirestore(aplikasi)
 
-export async function ambilDaftarTodoList() {
-  const refDokumen = collection(basisdata, "todo");
-  const kueri = query(refDokumen, orderBy("teks")); // urutkan berdasarkan teks, bisa disesuaikan
-
+export async function ambilDaftarTodo() {
   try {
+    const refDokumen = collection(basisdata, "todo");
+    const kueri = query(refDokumen, orderBy("teks")); // Mengurutkan berdasarkan teks
     const cuplikanKueri = await getDocs(kueri);
-    const hasilKueri = cuplikanKueri.docs.map((dokumen) => ({
+    
+    return cuplikanKueri.docs.map((dokumen) => ({
       id: dokumen.id,
       teks: dokumen.data().teks,
       status: dokumen.data().status
     }));
-
-    return hasilKueri;
   } catch (error) {
-    console.error("Gagal mengambil daftar todo list:", error);
+    console.error("Gagal mengambil data todo:", error);
     return [];
   }
 }
 
-
-// fungsi untuk menambah todo list
-export async function tambahTodoList(teks, status = "belum selesai") {
+//fungsi untuk menambah todo list
+export async function tambahTodoList(teks, status) {
   try {
-    // menyimpan data ke koleksi 'todolist' di Firebase
+    // menyimpan data ke Firebase
     const refDokumen = await addDoc(collection(basisdata, "todo"), {
       teks: teks,
-      status: status // sekarang menerima string dari parameter
+      status: status // bisa "belum", "proses", atau "selesai"
     });
 
     // menampilkan pesan berhasil
-    console.log('berhasil menyimpan data todo list');
+    console.log('Berhasil menyimpan data todo');
   } catch (error) {
     // menampilkan pesan gagal
-    console.log('gagal menyimpan data todo list:', error.message);
+    console.log('Gagal menyimpan data todo:', error);
   }
 }
